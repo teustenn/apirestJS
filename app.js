@@ -1,7 +1,21 @@
-const variable = 1;
+import express from 'express';
+import homeR from './src/routes/homeR';
 
-console.log(variable);
+class App {
+  constructor() {
+    this.app = express();
+    this.middrewares();
+    this.routes();
+  }
 
-for (let i = 0; i <= 10; i++) {
-  console.log(i);
+  middrewares() {
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.json);
+  }
+
+  routes() {
+    this.app.use('/', homeR);
+  }
 }
+
+export default new App().app;
