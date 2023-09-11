@@ -1,3 +1,9 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+import './src/database';
+
 import express from 'express';
 import homeR from './src/routes/homeR';
 
@@ -10,7 +16,7 @@ class App {
 
   middrewares() {
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(express.json);
+    this.app.use(express.json());
   }
 
   routes() {
