@@ -1,7 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 import bcryptjs from 'bcryptjs';
 
-export default class Student extends Model {
+export default class User extends Model {
   static init(sequelize) {
     super.init({
       name: {
@@ -10,26 +10,19 @@ export default class Student extends Model {
         validate: {
           len: {
             args: [3, 255],
-            msg: 'Name must contain between 3 and 255 caracters.',
+            msg: 'Name must contain between 3 and 255 characters.',
           },
         },
       },
       email: {
         type: Sequelize.STRING,
         defaultValue: '',
+        unique: {
+          msg: 'Email already exists.',
+        },
         validate: {
           isEmail: {
-            msg: 'Enter a valid email.',
-          },
-        },
-      },
-      password: {
-        type: Sequelize.VIRTUAL,
-        defaultValue: '',
-        validate: {
-          len: {
-            args: [6, 50],
-            msg: 'Password must contain at least 8 caracters.',
+            msg: 'Invalid email.',
           },
         },
       },
@@ -37,14 +30,30 @@ export default class Student extends Model {
         type: Sequelize.STRING,
         defaultValue: '',
       },
+      password: {
+        type: Sequelize.VIRTUAL,
+        defaultValue: '',
+        validate: {
+          len: {
+            args: [6, 50],
+            msg: 'Password must contain between 6 and 50 characters.',
+          },
+        },
+      },
     }, {
       sequelize,
     });
 
     this.addHook('beforeSave', async (user) => {
-      user.password_hash = await bcryptjs.hash(user.password, 8);
+      if (user.password) {
+        user.password_hash = await bcryptjs.hash(user.password, 8);
+      }
     });
 
     return this;
+  }
+
+  passwordIsValid(password) {
+    return bcryptjs.compare(password, this.password_hash);
   }
 }

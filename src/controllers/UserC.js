@@ -2,13 +2,15 @@ import User from '../models/UserM';
 
 class UserController {
   async create(req, res) {
-    const newUser = await User.create({
-      name: 'Peter',
-      email: 'peter@parker.com',
-      password: '12345678',
-    });
+    try {
+      const newUser = await User.create(req.body);
 
-    res.json(newUser);
+      res.json(newUser);
+    } catch (e) {
+      res.status(400).json({
+        errors: e.message,
+      });
+    }
   }
 }
 
