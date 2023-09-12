@@ -75,7 +75,7 @@ class UserController {
       }
 
       const userDeleted = await user.destroy(req.body);
-      return res.json(user);
+      return res.json(userDeleted);
     } catch (e) {
       return res.status(400).json({
         errors: e.message,
