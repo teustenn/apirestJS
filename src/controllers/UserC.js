@@ -16,6 +16,8 @@ class UserController {
   async index(req, res) {
     try {
       const users = await User.findAll();
+      console.log(`USER ID: ${req.userId}`);
+      console.log(`USER EMAIL: ${req.userEmail}`);
 
       return res.json(users);
     } catch (e) {
@@ -50,6 +52,7 @@ class UserController {
       }
 
       const userUpdated = await user.update(req.body);
+
       return res.json(userUpdated);
     } catch (e) {
       return res.status(400).json({
@@ -75,6 +78,7 @@ class UserController {
       }
 
       const userDeleted = await user.destroy(req.body);
+
       return res.json(userDeleted);
     } catch (e) {
       return res.status(400).json({
