@@ -6,7 +6,7 @@ class StudentController {
     return res.json(students);
   }
 
-  async create(req, res) {
+  async store(req, res) {
     try {
       const newStudent = await Student.create(req.body);
       return res.json(newStudent);

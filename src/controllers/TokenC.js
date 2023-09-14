@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/UserM';
 
 class TokenController {
-  async create(req, res) {
+  async store(req, res) {
     const { email = '', password = '' } = req.body;
 
     if (!email || !password) {
