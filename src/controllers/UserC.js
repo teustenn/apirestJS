@@ -8,7 +8,6 @@ class UserController {
 
       return res.json({ id, name, email });
     } catch (e) {
-      console.log(e);
       return res.status(400).json({
         errors: e.message,
       });
@@ -74,10 +73,9 @@ class UserController {
         });
       }
 
-      const userDeleted = await user.destroy(req.body);
-      const { id, name, email } = userDeleted;
+      await user.destroy(req.body);
 
-      return res.json({ id, name, email });
+      return res.json(true);
     } catch (e) {
       return res.status(400).json({
         errors: e.message,
