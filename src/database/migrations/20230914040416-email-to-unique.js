@@ -1,6 +1,6 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     queryInterface.changeColumn('students', 'email', {
       type: Sequelize.STRING,
       allowNull: false,
