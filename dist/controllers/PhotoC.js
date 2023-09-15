@@ -31,7 +31,7 @@ class PhotoController {
         return res.json(newPhoto);
       } catch (e) {
         return res.status(400).json({
-          errors: e.message,
+          errors: ['Student not found.'],
         });
       }
     });
