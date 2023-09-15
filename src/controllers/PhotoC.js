@@ -1,6 +1,6 @@
 import multer from 'multer';
-import multerConfig from '../config/multer';
 
+import multerConfig from '../config/multer';
 import Photo from '../models/PhotoM';
 
 const upload = multer(multerConfig).single('file');
@@ -16,17 +16,17 @@ class PhotoController {
 
       try {
         const { originalname, filename } = req.file;
-        const id = req.body.student_id;
+        const { student_id } = req.body;
 
-        const photo = await Photo.findAll({ where: { student_id: id } });
+        const photo = await Photo.findAll({ where: { student_id } });
 
-        if (!photo.length === 0) {
+        if (photo.length !== 0) {
           return res.status(400).json({
             errors: ['Student already has a photo.'],
           });
         }
 
-        const newPhoto = await Photo.create({ originalname, filename, id });
+        const newPhoto = await Photo.create({ originalname, filename, student_id });
 
         return res.json(newPhoto);
       } catch (e) {
