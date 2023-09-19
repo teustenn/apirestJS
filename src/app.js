@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import { resolve } from 'path';
+import helmet from 'helmet';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -12,6 +14,16 @@ import studentR from './routes/studentR';
 import userR from './routes/userR';
 import tokenR from './routes/tokenR';
 
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS.'));
+    }
+  }
+};
+
 class App {
   constructor() {
     this.app = express();
@@ -22,6 +34,10 @@ class App {
   middrewares() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+
+    this.app.use(helmet());
+    this.app.use(cors(corsOptions));
+
     this.app.use('/images/', express.static(resolve(__dirname, '..', 'uploads', 'images')));
   }
 
