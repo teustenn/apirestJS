@@ -25,12 +25,12 @@ class TokenController {
       });
     }
 
-    const { id } = user;
+    const { id, name } = user;
     const token = _jsonwebtoken2.default.sign({ id, email }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
 
-    return res.send({ token });
+    return res.send({ user: { id, name, email }, token });
   }
 }
 
