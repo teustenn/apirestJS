@@ -6,6 +6,6 @@ read message
 git commit -m "$message"
 git push
 ssh matheus@34.151.247.112 \
-  'cd apirestJS/ ' \
+  'git -C /home/matheus/apirestJS/ ' \
   'git pull && ' \
   'pm2 restart Api && sudo service nginx restart'
