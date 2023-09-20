@@ -15,13 +15,13 @@ import userR from './routes/userR';
 import tokenR from './routes/tokenR';
 
 const corsOptions = {
-  origin: function (origin, callback) {
+  origin(origin, callback) {
     if (!origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS.'));
     }
-  }
+  },
 };
 
 class App {
