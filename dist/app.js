@@ -14,9 +14,13 @@ var _studentR = require('./routes/studentR'); var _studentR2 = _interopRequireDe
 var _userR = require('./routes/userR'); var _userR2 = _interopRequireDefault(_userR);
 var _tokenR = require('./routes/tokenR'); var _tokenR2 = _interopRequireDefault(_tokenR);
 
+const whiteList = [
+  'http://localhost:3000',
+];
+
 const corsOptions = {
   origin(origin, callback) {
-    if (!origin) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS.'));
