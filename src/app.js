@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
-import { resolve } from 'path';
 import helmet from 'helmet';
 import cors from 'cors';
+import delay from 'express-delay';
+import { resolve } from 'path';
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ class App {
 
     this.app.use(helmet());
     this.app.use(cors(corsOptions));
+    this.app.use(delay(2000));
 
     this.app.use('/images/', express.static(resolve(__dirname, '..', 'uploads', 'images')));
   }
