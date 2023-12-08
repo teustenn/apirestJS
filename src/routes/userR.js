@@ -9,7 +9,7 @@ router.get('/', loginRequired, userController.index);
 router.get('/:id', loginRequired, userController.show);
 
 router.post('/', userController.store);
-router.put('/:id', loginRequired, userController.update);
-router.delete('/:id', loginRequired, userController.delete);
+router.put('/', loginRequired, userController.update);
+router.delete('/', loginRequired, userController.delete);
 
 export default router;

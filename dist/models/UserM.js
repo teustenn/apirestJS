@@ -53,7 +53,7 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
     return this;
   }
 
-  passwordIsValid(password) {
+  isPasswordValid(password) {
     return _bcryptjs2.default.compare(password, this.password_hash);
   }
 } exports.default = User;

@@ -19,7 +19,7 @@ class TokenController {
       });
     }
 
-    if (!(await user.passwordIsValid(password))) {
+    if (!(await user.isPasswordValid(password))) {
       return res.status(401).json({
         errors: ['Invalid password.'],
       });
