@@ -8,7 +8,6 @@ export default {
     if (file.mimetype !== 'image/img' && file.mimetype !== 'image/jpeg') {
       return cb(new multer.MulterError('File must be PNG or JPEG.'));
     }
-
     return cb(null, true);
   },
   storage: multer.diskStorage({
