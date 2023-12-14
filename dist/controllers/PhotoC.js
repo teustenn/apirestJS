@@ -4,6 +4,7 @@ var _fs = require('fs'); var _fs2 = _interopRequireDefault(_fs);
 
 var _multer3 = require('../config/multer'); var _multer4 = _interopRequireDefault(_multer3);
 var _PhotoM = require('../models/PhotoM'); var _PhotoM2 = _interopRequireDefault(_PhotoM);
+var _StudentM = require('../models/StudentM'); var _StudentM2 = _interopRequireDefault(_StudentM);
 
 const upload = _multer2.default.call(void 0, _multer4.default).single('file');
 
@@ -27,19 +28,20 @@ class PhotoController {
         const { student_id } = req.body;
 
         const photo = await _PhotoM2.default.findAll({ where: { student_id } });
-        const path = _path.resolve.call(void 0, __dirname, '..', '..', 'uploads', 'images', photo[0].filename);
 
         if (photo.length !== 0) {
-          _fs2.default.unlink(path, (err) => {
+          const path = _path.resolve.call(void 0, __dirname, '..', '..', 'uploads', 'images', photo[0].filename);
+
+          _fs2.default.unlink(path, async (err) => {
             if (err) {
               return res.status(400).json({
                 errors: [err.message],
               });
             }
+
+            await _PhotoM2.default.destroy({ where: { student_id } });
             return true;
           });
-
-          await _PhotoM2.default.destroy({ where: { student_id } });
         }
 
         const newPhoto = await _PhotoM2.default.create({ originalname, filename, student_id });

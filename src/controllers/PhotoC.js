@@ -4,6 +4,7 @@ import fs from 'fs';
 
 import multerConfig from '../config/multer';
 import Photo from '../models/PhotoM';
+import Student from '../models/StudentM';
 
 const upload = multer(multerConfig).single('file');
 
@@ -27,19 +28,20 @@ class PhotoController {
         const { student_id } = req.body;
 
         const photo = await Photo.findAll({ where: { student_id } });
-        const path = resolve(__dirname, '..', '..', 'uploads', 'images', photo[0].filename);
 
         if (photo.length !== 0) {
-          fs.unlink(path, (err) => {
+          const path = resolve(__dirname, '..', '..', 'uploads', 'images', photo[0].filename);
+
+          fs.unlink(path, async (err) => {
             if (err) {
               return res.status(400).json({
                 errors: [err.message],
               });
             }
+
+            await Photo.destroy({ where: { student_id } });
             return true;
           });
-
-          await Photo.destroy({ where: { student_id } });
         }
 
         const newPhoto = await Photo.create({ originalname, filename, student_id });
