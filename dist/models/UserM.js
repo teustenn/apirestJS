@@ -10,7 +10,7 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
         validate: {
           len: {
             args: [3, 255],
-            msg: ['Name must contain between 3 and 255 characters.'],
+            msg: 'Name must contain between 3 and 255 characters.',
           },
         },
       },
@@ -18,11 +18,11 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
         type: _sequelize2.default.STRING,
         defaultValue: '',
         unique: {
-          msg: ['Email already exists.'],
+          msg: 'Email already exists.',
         },
         validate: {
           isEmail: {
-            msg: ['Invalid email.'],
+            msg: 'Invalid email.',
           },
         },
       },
@@ -36,7 +36,7 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
         validate: {
           len: {
             args: [6, 50],
-            msg: ['Password must contain between 6 and 50 characters.'],
+            msg: 'Password must contain between 6 and 50 characters.',
           },
         },
       },
@@ -53,7 +53,7 @@ var _bcryptjs = require('bcryptjs'); var _bcryptjs2 = _interopRequireDefault(_bc
     return this;
   }
 
-  passwordIsValid(password) {
+  isPasswordValid(password) {
     return _bcryptjs2.default.compare(password, this.password_hash);
   }
 } exports.default = User;

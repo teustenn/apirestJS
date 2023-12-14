@@ -30,5 +30,6 @@ module.exports = {
     'linebreak-style': 'off',
     'no-unused-vars': 'warn',
     camelcase: 'off',
+    'no-unused-vars': 'warn',
   },
 };

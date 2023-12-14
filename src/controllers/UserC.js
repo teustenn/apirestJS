@@ -8,9 +8,7 @@ class UserController {
 
       return res.json({ id, name, email });
     } catch (e) {
-      return res.status(400).json({
-        errors: e.message,
-      });
+      return res.status(400).json({ errors: e.errors[0].message });
     }
   }
 
@@ -46,7 +44,32 @@ class UserController {
         });
       }
 
-      const userUpdated = await user.update(req.body);
+      const reqName = req.body.name;
+      const reqEmail = req.body.email;
+      const reqPassword = req.body.password;
+
+      let userUpdated = '';
+
+      if (reqName) {
+        userUpdated = await user.update(req.body);
+      }
+
+      if (reqEmail && !reqPassword) {
+        return res.status(400).json({
+          errors: ['Missing password'],
+        });
+      }
+
+      if (reqEmail && reqPassword) {
+        if (!(await user.isPasswordValid(reqPassword))) {
+          return res.status(401).json({
+            errors: ['Invalid password.'],
+          });
+        }
+
+        userUpdated = await user.update({ email: reqEmail });
+      }
+
       const { id, name, email } = userUpdated;
 
       return res.json({ id, name, email });
