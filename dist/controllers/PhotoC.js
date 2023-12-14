@@ -4,7 +4,6 @@ var _fs = require('fs'); var _fs2 = _interopRequireDefault(_fs);
 
 var _multer3 = require('../config/multer'); var _multer4 = _interopRequireDefault(_multer3);
 var _PhotoM = require('../models/PhotoM'); var _PhotoM2 = _interopRequireDefault(_PhotoM);
-var _StudentM = require('../models/StudentM'); var _StudentM2 = _interopRequireDefault(_StudentM);
 
 const upload = _multer2.default.call(void 0, _multer4.default).single('file');
 

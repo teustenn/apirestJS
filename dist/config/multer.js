@@ -5,8 +5,8 @@ const random = () => Math.floor(Math.random() * 10000 + 10000);
 
 exports. default = {
   fileFilter: (req, file, cb) => {
-    if (file.mimetype !== 'image/img' && file.mimetype !== 'image/jpeg') {
-      return cb(new _multer2.default.MulterError('File must be PNG or JPEG.'));
+    if (file.mimetype !== 'image/png' && file.mimetype !== 'image/jpeg' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/gif') {
+      return cb(new _multer2.default.MulterError('File must be PNG, JPG, JPEG or GIF.'));
     }
     return cb(null, true);
   },

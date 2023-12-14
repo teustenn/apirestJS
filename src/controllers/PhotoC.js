@@ -4,7 +4,6 @@ import fs from 'fs';
 
 import multerConfig from '../config/multer';
 import Photo from '../models/PhotoM';
-import Student from '../models/StudentM';
 
 const upload = multer(multerConfig).single('file');
 
