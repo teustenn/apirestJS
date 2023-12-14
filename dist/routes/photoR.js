@@ -6,5 +6,6 @@ var _loginRequired = require('../middlewares/loginRequired'); var _loginRequired
 const router = new (0, _express.Router)();
 
 router.post('/', _loginRequired2.default, _PhotoC2.default.store);
+router.put('/', _loginRequired2.default, _PhotoC2.default.update);
 
 exports. default = router;

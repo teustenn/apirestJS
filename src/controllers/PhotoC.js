@@ -18,12 +18,10 @@ class PhotoController {
         const { originalname, filename } = req.file;
         const { student_id } = req.body;
 
-        const photo = await Photo.findAll({ where: { student_id } });
+        const photo = await Photo.findOne({ where: { student_id } });
 
         if (photo.length !== 0) {
-          return res.status(400).json({
-            errors: ['Student already has a photo.'],
-          });
+          await Photo.destroy({ where: { id: student_id } });
         }
 
         const newPhoto = await Photo.create({ originalname, filename, student_id });
